@@ -1,6 +1,7 @@
 import 'package:firesplit/constants/temppersons.dart';
 import 'package:firesplit/models/Person.dart';
 import 'package:firesplit/screens/singlechat.dart';
+import 'package:firesplit/services/apicalls.dart';
 import 'package:firesplit/views/chatcard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,6 +18,16 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     GetRandom random = new GetRandom();
     widget.persons = random.sendRandom();
+    callGetPersons();
+    print("HERE!!");
+  }
+
+  void callGetPersons() async {
+    List<Person> temp = await getPersons();
+    setState(() {
+      addMessages(temp);
+      widget.persons = temp;
+    });
   }
 
   @override

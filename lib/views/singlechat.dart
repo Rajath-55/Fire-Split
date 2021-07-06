@@ -1,12 +1,14 @@
 import 'package:firesplit/models/Person.dart';
 import 'package:firesplit/screens/chatscreen.dart';
+import 'package:firesplit/services/apicalls.dart';
 import 'package:firesplit/views/message.dart';
 import 'package:flutter/material.dart';
 
 class SingleChatBody extends StatefulWidget {
-  SingleChatBody({Key? key, this.message}) : super(key: key);
+  SingleChatBody({Key? key, this.message, this.person}) : super(key: key);
 
   final List<Messages>? message;
+  final Person? person;
 
   @override
   _SingleChatBodyState createState() => _SingleChatBodyState();
@@ -27,6 +29,7 @@ class _SingleChatBodyState extends State<SingleChatBody> {
 
   void changeContent(text) {
     Messages newMessage = new Messages(true, text, DateTime.now());
+    addNewMessage(widget.person as Person, newMessage);
     setState(() {
       mymessage.add(newMessage);
     });

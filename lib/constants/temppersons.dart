@@ -1,12 +1,13 @@
 import 'package:firesplit/models/Person.dart';
 import 'package:firesplit/services/apicalls.dart';
+import 'package:uuid/uuid.dart';
 
 class GetRandom {
   List<Person> persons = [];
 
   void generateChats() {
     Person one = new Person(
-        '1',
+        Uuid().v4(),
         'Pareekshith',
         [
           new Messages(false, 'I love her dude', DateTime.now()),
@@ -16,13 +17,13 @@ class GetRandom {
           new Messages(true, 'F', DateTime.now()),
         ],
         DateTime.now());
-    Person two = new Person('1', 'John',
+    Person two = new Person(Uuid().v4(), 'John',
         [new Messages(false, 'Test message', DateTime.now())], DateTime.now());
-    Person three = new Person('1', 'Daniel',
+    Person three = new Person(Uuid().v4(), 'Daniel',
         [new Messages(true, 'Test message', DateTime.now())], DateTime.now());
-    Person four = new Person('1', 'Joe',
+    Person four = new Person(Uuid().v4(), 'Joe',
         [new Messages(true, 'Test message', DateTime.now())], DateTime.now());
-    Person five = new Person('1', 'Deez',
+    Person five = new Person(Uuid().v4(), 'Deez',
         [new Messages(true, 'Test message', DateTime.now())], DateTime.now());
 
     persons.add(one);

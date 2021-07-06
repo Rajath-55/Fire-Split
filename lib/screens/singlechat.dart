@@ -36,6 +36,7 @@ class _ChatWindowState extends State<ChatWindow> {
             ],
           ),
         ),
-        body: SingleChatBody(message: widget.chat?.message));
+        body:
+            SingleChatBody(message: widget.chat?.message, person: widget.chat));
   }
 }

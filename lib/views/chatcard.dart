@@ -12,7 +12,11 @@ class ChatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String? text = chat.message?[chat.message.length - 1];
+    if (chat?.message?.length == 0) {
+      chat?.message = [
+        new Messages(false, 'Just for the lulz', DateTime.now())
+      ];
+    }
     return Row(mainAxisAlignment: MainAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.only(right: 8.0, bottom: 2.0),

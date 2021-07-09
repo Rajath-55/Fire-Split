@@ -1,13 +1,13 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firesplit/screens/chatscreen.dart';
 import 'package:firesplit/screens/loginscreen.dart';
 import 'package:firesplit/screens/paymentscreen.dart';
+import 'package:firesplit/services/Split-Algo.dart';
 import 'package:firesplit/services/apicalls.dart';
 import 'package:firesplit/services/auth_block.dart';
+import 'package:firesplit/services/databaseManager.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -22,12 +22,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    print("Init");
+    DatabaseManager().createNewUser();
+    GetMinSplit().buildGraph();
     getPersons();
 
     var authBlock = Provider.of<AuthBlock>(context, listen: false);
     _loginStateSubscription = authBlock.currentUser.listen((isuser) {
-      print("Listening");
+      // print("Listening");
       if (isuser == null) {
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => LoginScreen()));

@@ -1,14 +1,13 @@
 import 'package:firesplit/models/Person.dart';
-import 'package:firesplit/screens/chatscreen.dart';
+import 'package:firesplit/services/databaseManager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({
-    this.chat,
-  });
+  const ChatCard({this.chat, this.user});
   final Person? chat;
+  final PayUser? user;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class ChatCard extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(right: 8.0, bottom: 2.0),
         child: CircleAvatar(
-          backgroundImage: AssetImage('assets/images/loginimage.png'),
+          backgroundImage: NetworkImage(user?.photoUrl as String),
           radius: 24,
         ),
       ),
@@ -34,7 +33,9 @@ class ChatCard extends StatelessWidget {
             children: [
               Text(chat?.name as String,
                   style: GoogleFonts.sourceSansPro(fontSize: 16)),
-              Text(DateFormat('hh:mm a').format(chat?.lastMessage as DateTime)),
+              Text(DateFormat('hh:mm a').format(user
+                  ?.conversations[user!.conversations.length - 1]
+                  .messageTime as DateTime)),
             ],
           ),
           Text(

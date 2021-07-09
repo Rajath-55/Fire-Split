@@ -2,12 +2,15 @@ import 'package:firesplit/constants/temppersons.dart';
 import 'package:firesplit/models/Person.dart';
 import 'package:firesplit/screens/singlechat.dart';
 import 'package:firesplit/services/apicalls.dart';
+import 'package:firesplit/services/databaseManager.dart';
 import 'package:firesplit/views/chatcard.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatScreen extends StatefulWidget {
   List<Person> persons = [];
+  List<PayUser> payUsers = [];
+  List<Conversation> conversations = [];
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -19,14 +22,24 @@ class _ChatScreenState extends State<ChatScreen> {
     GetRandom random = new GetRandom();
     widget.persons = random.sendRandom();
     callGetPersons();
-    print("HERE!!");
   }
 
   void callGetPersons() async {
-    List<Person> temp = await getPersons();
+    DatabaseManager manager = new DatabaseManager();
+    List<PayUser> users = await manager.getAllUsers();
+    users = await manager.appendConversations(users);
+    // users.forEach((element) {
+    //   element.conversations.forEach((no) {
+    //     if (no.messages.length > 0) {
+    //       no.messages.forEach((message) {
+    //         print(message);
+    //       });
+    //     }
+    //   });
+    // });
+
     setState(() {
-      addMessages(temp);
-      widget.persons = temp;
+      widget.payUsers = users;
     });
   }
 
@@ -34,8 +47,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     List<Person> persons = widget.persons;
     return Scaffold(
-      floatingActionButton:
-          FloatingActionButton(onPressed: () {}, child: Icon(Icons.person_add)),
+      // floatingActionButton:
+      //     FloatingActionButton(onPressed: () {}, child: Icon(Icons.person_add)),
       appBar: AppBar(
         leading: BackButton(onPressed: () => {Navigator.pop(context)}),
         title: Row(
@@ -67,7 +80,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 10.0),
                   child: InkWell(
-                      child: ChatCard(chat: persons[index]),
+                      child: ChatCard(
+                          chat: persons[index], user: widget.payUsers[0]),
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) =>
                               ChatWindow(chat: persons[index])))),

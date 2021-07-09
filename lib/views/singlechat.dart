@@ -67,7 +67,7 @@ class _SingleChatBodyState extends State<SingleChatBody> {
                           borderSide:
                               BorderSide(color: Theme.of(context).dividerColor),
                         ),
-                        icon: Icon(Icons.mic_sharp),
+                        // icon: Icon(Icons.mic_sharp),
                         hintText: 'Send a text..',
                         hintStyle: TextStyle(
                           fontSize: 17,
@@ -78,7 +78,6 @@ class _SingleChatBodyState extends State<SingleChatBody> {
                       autofocus: true,
                       onFieldSubmitted: (text) {
                         if (text.isNotEmpty) {
-                          print(mymessage.length);
                           changeContent(text);
                           _controller.clear();
                           _focusNode.requestFocus();

@@ -1,5 +1,4 @@
 import 'package:firesplit/models/Person.dart';
-import 'package:firesplit/screens/chatscreen.dart';
 import 'package:firesplit/views/singlechat.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

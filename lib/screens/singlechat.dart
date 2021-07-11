@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ChatWindow extends StatefulWidget {
   final Person? chat;
-  const ChatWindow({Key? key, this.chat}) : super(key: key);
+  final Map<String, dynamic>? conversation;
+  const ChatWindow({Key? key, this.chat, this.conversation}) : super(key: key);
 
   @override
   _ChatWindowState createState() => _ChatWindowState();
@@ -25,17 +26,20 @@ class _ChatWindowState extends State<ChatWindow> {
                 Padding(
                   padding: const EdgeInsets.only(right: 7.0),
                   child: CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/loginimage.png'),
+                    backgroundImage: NetworkImage(
+                        widget.conversation?['photoUrl'] as String),
                     radius: 24,
                   ),
                 ),
-                Text(widget.chat?.name as String,
+                Text(widget.conversation?['peer'] as String,
                     style: GoogleFonts.montserrat(fontSize: 25)),
               ])
             ],
           ),
         ),
-        body:
-            SingleChatBody(message: widget.chat?.message, person: widget.chat));
+        body: SingleChatBody(
+            message: widget.chat?.message,
+            person: widget.chat,
+            conversation: widget.conversation));
   }
 }

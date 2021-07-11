@@ -1,5 +1,6 @@
 // import 'package:firesplit/services/loginservice.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firesplit/services/databaseManager.dart';
 import 'package:firesplit/services/loginservice.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -29,6 +30,8 @@ class AuthBlock {
 
   logout() {
     print("Logout called");
+    //so that when we login again there is a new call made to add conversations if they don't exist.
+    DatabaseManager.madeNewConversations = false;
     authService.signOut();
   }
 }

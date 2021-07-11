@@ -1,12 +1,15 @@
-import 'package:firesplit/models/Person.dart';
-import 'package:firesplit/screens/chatscreen.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:chat_bubbles/chat_bubbles.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Message extends StatefulWidget {
-  const Message({Key? key, this.message}) : super(key: key);
+  Message({Key? key, this.message, this.isSender, this.isUpdated, this.debt})
+      : super(key: key);
 
-  final Messages? message;
+  final String? message;
+  final bool? isSender;
+  final bool? isUpdated;
+  num? debt;
   @override
   _MessageState createState() => _MessageState();
 }
@@ -14,23 +17,17 @@ class Message extends StatefulWidget {
 class _MessageState extends State<Message> {
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: widget.message!.isSender!
-          ? MainAxisAlignment.end
-          : MainAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          child: Container(
-              margin: EdgeInsets.only(top: 12),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              decoration: BoxDecoration(
-                  color: Theme.of(context).hintColor,
-                  borderRadius: BorderRadius.circular(30)),
-              child: Text(widget.message?.content as String,
-                  style: GoogleFonts.varela(fontSize: 16))),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 7.45, horizontal: 4.25),
+      child: BubbleNormal(
+        text: widget.message as String,
+        textStyle: TextStyle(fontWeight: FontWeight.w400),
+        isSender: widget.isSender!,
+        color: Color.fromRGBO(180, 144, 144, 0.35),
+        tail: true,
+        sent: widget.isSender!,
+        delivered: widget.isSender!,
+      ),
     );
   }
 }

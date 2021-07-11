@@ -5,9 +5,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
 class ChatCard extends StatelessWidget {
-  const ChatCard({this.chat, this.user});
+  ChatCard({this.chat, this.user, this.conversation});
   final Person? chat;
   final PayUser? user;
+  final Map<String, dynamic>? conversation;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class ChatCard extends StatelessWidget {
       Padding(
         padding: const EdgeInsets.only(right: 8.0, bottom: 2.0),
         child: CircleAvatar(
-          backgroundImage: NetworkImage(user?.photoUrl as String),
+          backgroundImage: NetworkImage(conversation?['photoUrl'] as String),
           radius: 24,
         ),
       ),
@@ -31,16 +32,16 @@ class ChatCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(chat?.name as String,
+              Text(conversation?['peer'],
                   style: GoogleFonts.sourceSansPro(fontSize: 16)),
-              Text(DateFormat('hh:mm a').format(user
-                  ?.conversations[user!.conversations.length - 1]
-                  .messageTime as DateTime)),
+              Text(DateFormat('hh:mm a').format(conversation?['message']
+                      [conversation!['message'].length - 1]['time']
+                  .toDate())),
             ],
           ),
           Text(
-            chat!.message!.elementAt(chat!.message!.length - 1).content
-                as String,
+            conversation?['message'][conversation!['message'].length - 1]
+                ['message'],
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           )

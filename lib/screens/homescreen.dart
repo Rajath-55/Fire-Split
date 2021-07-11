@@ -101,8 +101,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Icons.payments,
                                           ),
                                         ),
-                                        Text("My Payments".toUpperCase(),
-                                            style: TextStyle(fontSize: 14)),
+                                        Text(
+                                            "Get Optimal Payments"
+                                                .toUpperCase(),
+                                            style: TextStyle(fontSize: 12)),
                                       ],
                                     ),
                                     style: ButtonStyle(
@@ -134,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           ),
                                         ),
                                         Text("ChatPay".toUpperCase(),
-                                            style: TextStyle(fontSize: 14)),
+                                            style: TextStyle(fontSize: 12)),
                                       ],
                                     ),
                                     style: ButtonStyle(
